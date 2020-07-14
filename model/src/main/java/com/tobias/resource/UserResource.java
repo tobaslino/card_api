@@ -17,52 +17,54 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tobias.controller.Controller;
-import com.tobias.entity.User;
+import com.tobias.entity.Usuario;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
-    
+
     @Inject
     private Controller controller;
 
     @GET
-    public List<User> findAll() {
-        return User.listAll();
+    public List<Usuario> findAll() {
+        return Usuario.listAll();
     }
 
     @POST
     @Transactional
-    public Response create(User user) {
-        User.persist(user);
-        return Response.ok(user).status(201).build();
+    public Response create(Usuario usuario) {
+        PanacheEntityBase.persist(usuario);
+        return Response.ok(usuario).status(201).build();
     }
 
     @PUT
     @Path("{id}")
     @Transactional
-    public Response update(@PathParam("id") long id, User user) {
-        if (controller.isUserNameNotEmpty(user)) {
-            return Response.ok("User was not found").type(MediaType.APPLICATION_JSON_TYPE).build();
+    public Response update(@PathParam("id") long id, Usuario Usuario) {
+        if (controller.isUserNameNotEmpty(Usuario)) {
+            return Response.ok("Usuario was not found").type(MediaType.APPLICATION_JSON_TYPE).build();
         }
 
-        User userEntity = controller.update(id, user);
-        return Response.ok(userEntity).build();
+        Usuario UsuarioEntity = controller.update(id, Usuario);
+        return Response.ok(UsuarioEntity).build();
     }
 
     @DELETE
     @Path("{id}")
     @Transactional
     public Response delete(@PathParam("id") Long id) {
-        User userEntity = User.findById(id);
+        Usuario UsuarioEntity = Usuario.findById(id);
         
-        if (userEntity == null) {
-            throw new WebApplicationException("User with id " + id 
+        if (UsuarioEntity == null) {
+            throw new WebApplicationException("Usuario with id " + id 
                 + " does not exist.", Response.Status.NOT_FOUND);
         }
 
-        userEntity.delete();
+        UsuarioEntity.delete();
         return Response.status(204).build();
     }
 }

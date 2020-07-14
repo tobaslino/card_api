@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
-public class User extends PanacheEntityBase {
+public class Usuario extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,12 @@ public class User extends PanacheEntityBase {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "historic")
     private Historic historic;
+
+    public static Usuario build(String name) {
+        var n = new Usuario();
+        n.userName = name;
+        return n;
+    }
 
     public String getName() {
         return userName;

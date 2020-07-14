@@ -9,8 +9,8 @@ import com.tobias.entity.*;
 @ApplicationScoped
 public class Controller {
     
-    public User update(Long id, User user) {
-        User userEntity = User.findById(id);
+    public Usuario update(Long id, Usuario user) {
+        Usuario userEntity = Usuario.findById(id);
 
         if (userEntity == null) {
             throw new WebApplicationException("User with id " + id 
@@ -20,7 +20,7 @@ public class Controller {
         return userEntity;
     }
     
-    private void updateUserFoundWithCurrentData(User founded, User current) {
+    private void updateUserFoundWithCurrentData(Usuario founded, Usuario current) {
         // founded.setName(current.getName());
         // founded.setAge(current.getAge());
         // founded.setIdentity(current.getIdentity());
@@ -28,7 +28,7 @@ public class Controller {
         // founded.setAddress(current.getAddress());
     }
 
-    public boolean isUserNameNotEmpty(User user) {
+    public boolean isUserNameNotEmpty(Usuario user) {
         return user.getName().isEmpty();
     }
 }

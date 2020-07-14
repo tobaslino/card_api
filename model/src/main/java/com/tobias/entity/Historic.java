@@ -16,7 +16,7 @@ public class Historic extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
-    private User user;
+    // @OneToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "userID")
+    // private Usuario user;
 }

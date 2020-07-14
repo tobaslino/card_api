@@ -6,16 +6,18 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
+import javax.transaction.Transactional;
+
+import com.tobias.entity.Usuario;
+import com.tobias.resource.UserResource;
+
 @QuarkusTest
 public class ExampleResourceTest {
-
     @Test
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/model")
-          .then()
-             .statusCode(200)
-             .body(is("teste_01"));
+    @Transactional
+    public void testCreateNewUser() {
+        var n = Usuario.build("tobias");
+        var ur = new UserResource();
+        ur.create(n);
     }
-
 }
