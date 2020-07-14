@@ -16,38 +16,38 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.tobias.controller.Controlller;
-import com.tobias.entity.Users;
+import com.tobias.controller.Controller;
+import com.tobias.entity.User;
 
-@Path("/users")
+@Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
     
     @Inject
-    private Controlller controller;
+    private Controller controller;
 
     @GET
-    public List<Users> findAll() {
-        return Users.listAll();
+    public List<User> findAll() {
+        return User.listAll();
     }
 
     @POST
     @Transactional
-    public Response create(Users user) {
-        Users.persist(user);
+    public Response create(User user) {
+        User.persist(user);
         return Response.ok(user).status(201).build();
     }
 
     @PUT
     @Path("{id}")
     @Transactional
-    public Response update(@PathParam("id") long id, Users user) {
+    public Response update(@PathParam("id") long id, User user) {
         if (controller.isUserNameNotEmpty(user)) {
             return Response.ok("User was not found").type(MediaType.APPLICATION_JSON_TYPE).build();
         }
 
-        Users userEntity = controller.update(id, user);
+        User userEntity = controller.update(id, user);
         return Response.ok(userEntity).build();
     }
 
@@ -55,7 +55,7 @@ public class UserResource {
     @Path("{id}")
     @Transactional
     public Response delete(@PathParam("id") Long id) {
-        Users userEntity = Users.findById(id);
+        User userEntity = User.findById(id);
         
         if (userEntity == null) {
             throw new WebApplicationException("User with id " + id 

@@ -7,10 +7,10 @@ import javax.ws.rs.core.Response;
 import com.tobias.entity.*;
 
 @ApplicationScoped
-public class Controlller {
+public class Controller {
     
-    public Users update(Long id, Users user) {
-        Users userEntity = Users.findById(id);
+    public User update(Long id, User user) {
+        User userEntity = User.findById(id);
 
         if (userEntity == null) {
             throw new WebApplicationException("User with id " + id 
@@ -20,15 +20,15 @@ public class Controlller {
         return userEntity;
     }
     
-    private void updateUserFoundWithCurrentData(Users founded, Users current) {
-        founded.setName(current.getName());
-        founded.setAge(current.getAge());
-        founded.setIdentity(current.getIdentity());
-        founded.setContact(current.getContact());
-        founded.setAddress(current.getAddress());
+    private void updateUserFoundWithCurrentData(User founded, User current) {
+        // founded.setName(current.getName());
+        // founded.setAge(current.getAge());
+        // founded.setIdentity(current.getIdentity());
+        // founded.setContact(current.getContact());
+        // founded.setAddress(current.getAddress());
     }
 
-    public boolean isUserNameNotEmpty(Users user) {
+    public boolean isUserNameNotEmpty(User user) {
         return user.getName().isEmpty();
     }
 }
